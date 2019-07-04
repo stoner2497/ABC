@@ -3,19 +3,26 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const path = require('path')
+const fs = require("fs");
 const app = express();
 
 mongoose.Promise = global.Promise;
 //connect to mongoose
 
 // // DB Config
-// const db = require("./config/Keys").mongoURI;
+const db = require("./config/Keys").mongoURI;
 
 // Connect to MongoDB
-// mongoose
-//   .connect(db, { useNewUrlParser: true })
-//   .then(() => console.log("MongoDB Connected"))
-//   .catch(err => console.log(err));
+// ssl: true,
+// sslValidate: false,
+// sslCA: fs.readFileSync('./rds-combined-ca-bundle.pem')
+
+mongoose
+  .connect(db,{
+    useNewUrlParser: true})
+  .then(() => {console.log('connected')} )
+  .catch(err => console.log(err));
+
 
 
 //mongoose query use

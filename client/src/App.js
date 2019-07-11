@@ -1,102 +1,52 @@
-/* import React, { Component } from 'react'
-import {Container,Row,Col} from 'reactstrap'
-import HomePage from './components/homepage'
-import Home from './components/dashboardcontent/home'
-import Task from './components/dashboardcontent/task'
-import LoanDue from './components/dashboardcontent/loanDue'
-import Faq from './components/dashboardcontent/faq'
-import AddCustomer from './components/dashboardcontent/add'
-import Navbar from './components/common/Navbar'
-import {BrowserRouter as Router,Route} from 'react-router-dom'
-import './App.css'
-export default class App extends Component {
-  render() {
-    return (
-      <Router>
-      <React.Fragment>
-        <Container>
-          <Row>
-            <Col md={12}>
-              <h1>Welcome Semi-Admin</h1>
-              <hr />
-            </Col>
-          </Row>
-          <Row>
-            <Col md = {2}>
-            
-            <Navbar linkOne="Home" linkTwo="Task" linkThree="Loan Due" linkFour="FAQ" linkFive="Add Customer"/>
-            </Col>
-            <Col md = {10}>
-              <Route exact path = "/" component = {HomePage} />
-            <Route exact path="/home" component={Home} />  
-            <Route exact path="/task" component={Task} />
-            <Route exact path="/loanDue" component={LoanDue} />
-            <Route exact path="/faq" component={Faq} />
-            <Route exact path="/add" component={AddCustomer} />
-            </Col>
-           
-          </Row>
-          <Row>
-            <Col md = {12}>
-              <hr />
-            Footer
-            </Col>
-          </Row>
-        </Container>
-      </React.Fragment>
-      </Router>
-    )
-  }
-}
- */
-
-
 import React, { Component } from 'react'
 import {Container,Row,Col} from 'reactstrap'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route,Switch} from 'react-router-dom'
+import jwt_decode from 'jwt-decode';
+import setAuthToken from './utils/setAuthToken';
+import Homepage from './components/homepage'
 import Navbar from './components/common/Navbar'
-import './App.css'
-import Customer from './components/employee/customer'
-import Analysis from './components/employee/analysis'
-import Task from './components/employee/task'
-import Faq from './components/employee/faq'
-import AddCustomer from './components/dashboardcontent/add'
+import Home from './components/dashboardcontent/home'
 
- export default class App extends Component {
-   render() {
-     return (
-<Router>
-      <React.Fragment>
-        <Container>
-          <Row>
-            <Col md={12}>
-              <h1>Welcome Employee</h1>
-              <hr />
-            </Col>
-          </Row>
-          <Row>
-            <Col md = {2}>
-            <Navbar/>
-            
-            </Col>
-            <Col md = {10}>
-            <Route exact path = "/customer" component = {Customer} />
-            <Route exact path="/analysis" component={Analysis} />  
-            <Route exact path="/task" component={Task} />
-            <Route exact path="/faq" component={Faq} />
-            <Route exact path="/add" component={AddCustomer} /> 
-            </Col>
-           
-          </Row>
-          <Row>
-            <Col md = {12}>
-              <hr />
-            Footer
-            </Col>
-          </Row>
-        </Container>
-      </React.Fragment>
-      </Router>     )
-   }
- }
- 
+import { setCurrentUser, logoutUser } from './Action/authAction';
+import { clearCurrentProfile } from './Action/accountActions';
+import PrivateRoute from './components/common/PrivateRoute';
+
+import { Provider } from 'react-redux';
+import store from './store';
+
+if (localStorage.jwtToken) {
+    // Set auth token header auth
+    setAuthToken(localStorage.jwtToken);
+    // Decode token and get user info and exp
+    const decoded = jwt_decode(localStorage.jwtToken);
+    // Set user and isAuthenticated
+    store.dispatch(setCurrentUser(decoded));
+  
+    // Check for expired token
+    const currentTime = Date.now() / 1000;
+    if (decoded.exp < currentTime) {
+      // Logout user
+      store.dispatch(logoutUser());
+      // Clear current Profile
+      store.dispatch(clearCurrentProfile());
+      // Redirect to login
+      window.location.href = '/';
+    }
+  }
+export default class App extends Component {
+   
+    render() {
+      return ( 
+          <Provider store={store}>
+              <Router>
+                  
+                  <Route exact path="/" component={Homepage} />
+                    <Switch>
+                        <PrivateRoute exact path="/admin" component={Home} />
+                    </Switch>
+              </Router>
+          </Provider>
+        )
+    }
+  }
+  

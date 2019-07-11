@@ -152,10 +152,10 @@ router.post('/register/Admin',(req,res) => {
                             if(admin) {
                                 res.status(404).json({error:'user exist'})
                             }else {                            
-                                    const {errors,isValid} = validateRegisterInput(req.body)
-                                    if(!isValid) {
-                                      res.status(400).json(errors)
-                                    }
+                                    // const {errors,isValid} = validateRegisterInput(req.body)
+                                    // if(!isValid) {
+                                    //   res.status(400).json(errors)
+                                    // }
                                     Admin.findOne({Branch:req.body.Branch})
                                       .then(branch  => {
                                         if(branch)

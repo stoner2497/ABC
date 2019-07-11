@@ -96,6 +96,13 @@ module.exports  = function (io)  {
                 res.status(200).json(user)
             }).catch(err => console.log(err))
     })
+
+    router.get('/',passport.authenticate('jwt',{session:false}),(req,res) => {
+        Admin.find()
+            .then(admin => {
+                res.status(200).json(admin)
+            })
+    })
     
 
     

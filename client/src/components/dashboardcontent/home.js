@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import {Row,Col} from 'reactstrap'
 import { Card, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
+import {connect} from 'react-redux';
+import {getAdmin} from "../../Action/accountActions"
 import { Chart } from "react-charts";
 const lineChart = (
     // A react-chart hyper-responsively and continuusly fills the available
@@ -30,16 +32,21 @@ const lineChart = (
     </div>
   )
 
-export default class Home extends Component {
+ class Home extends Component {
+   componentDidMount() {
+     this.props.getAdmin()
+   }
     render() {
+      const {Name,Branch,email} = this.props.auth
         return (
             <React.Fragment>
                 <Row>
+                  <h5>{Name}</h5>
                 <Col md = {3}>
                 <Card>
         
         <CardBody>
-          <CardTitle>Card title</CardTitle>
+          <CardTitle></CardTitle>
           <CardSubtitle>Card subtitle</CardSubtitle>
           <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
           <Button>Button</Button>
@@ -169,3 +176,7 @@ export default class Home extends Component {
         )
     }
 }
+const mapStateToProps = state => ({
+  auth:state.auth
+})
+export default connect(mapStateToProps,{getAdmin})(Home) 

@@ -20,6 +20,15 @@ export const getAdmin = (AdminData) => dispatch =>  {
       })
 }
 
+export const getEmployee = (employeeData) => dispatch => {
+    dispatch(setProfileLoading())
+    axios.get('/employee/',employeeData)
+      .then(res => dispatch({
+        type:GET_EMPLOYEE,
+        payload:res.data
+      }))
+}
+
 export const setProfileLoading = () => {
   return {
     type: PROFILE_LOADING

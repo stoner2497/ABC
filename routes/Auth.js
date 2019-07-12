@@ -116,10 +116,7 @@ router.post("/", (req, res) => {
 
 router.post('/register/superAdmin',(req,res) => {
 
-    const {errors,isValid} = validateRegisterInput(req.body)
-      if(!isValid) {
-        res.status(400).json(errors)
-      }
+   
         const newsuperadmin = new SuperAdmin({
             Name:req.body.Name,
             email:req.body.email,
@@ -163,6 +160,7 @@ router.post('/register/Admin',(req,res) => {
                                            res.status(400).json({error:'Branch has Already Been Reserved'})
                                          }else {
                                           const newadmin = new Admin({
+                                            Designation:"Manager",
                                             Branch:req.body.Branch,
                                                 Name:req.body.Name,
                                             email:req.body.email,

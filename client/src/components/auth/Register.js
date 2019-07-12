@@ -2,15 +2,16 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import { Form, FormGroup, Label, Input ,Container , Row ,Col,Card,CardBody,CardTitle} from 'reactstrap';
-import {loginAdmin} from '../../Action/authAction'
+import {registerAdmin} from '../../Action/authAction'
 import Button from '../common/Button'
- class Login extends Component {
+ class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            Name:'',
             email:'',
             password:'',
-            error:''
+            error:{}
         };
         this.onHandleChange = this.onHandleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this)
@@ -18,16 +19,13 @@ import Button from '../common/Button'
 
     componentDidMount() {
         if (this.props.auth.isAuthenticated) {
-          this.props.history.push('/admin');
+          this.props.history.push('/dashboard');
         }
       }
     
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.auth.isAuthenticated) {
-        this.props.history.push('/admin');
-        }
-
+       
         if (nextProps.errors) {
         this.setState({ errors: nextProps.errors });
         }
@@ -40,15 +38,17 @@ import Button from '../common/Button'
     }
     onSubmit (e)  {
         e.preventDefault()
-        const {email,password} = this.state;
+        const {Name,email,password} = this.state;
         const adminData = {
+            Name,
             email,
             password
         }
-        this.props.loginAdmin(adminData)
+        console.log(adminData)
+        this.props.registerAdmin(adminData,this.props.history)
     }
     render() {
-        const {email,password} = this.state
+        const {Name,email,password} = this.state
         return (
             <React.Fragment>
                 <Container >
@@ -57,8 +57,12 @@ import Button from '../common/Button'
                         <Col md="6">
                             <Card className="loginCard">
                                 <CardBody>
-                                    <CardTitle className="text-center">LOGIN ADMIN</CardTitle>
+                                    <CardTitle className="text-center">Register ADMIN</CardTitle>
                                 <Form  onSubmit={this.onSubmit}>
+                                    <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                                    <Label for="exampleEmail" className="mr-sm-2">Email</Label>
+                                    <Input type="text" name="Name" value={Name} onChange={this.onHandleChange} id="exampleEmail" placeholder="Your Good Name" />
+                                    </FormGroup>
                                     <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                                     <Label for="exampleEmail" className="mr-sm-2">Email</Label>
                                     <Input type="email" name="email" value={email} onChange={this.onHandleChange} id="exampleEmail" placeholder="something@idk.cool" />
@@ -68,9 +72,11 @@ import Button from '../common/Button'
                                     <Input type="password" name="password" value={password} onChange={this.onHandleChange} id="examplePassword" placeholder="don't tell!" />
                                     </FormGroup>
                                     <FormGroup>
-                                    <Link to="/register"> <small>Register Here</small> </Link>
+                                    <small>Already Register <br />  <Link to="/">Login Here </Link></small> 
                                     </FormGroup>
-                                    <Input type="submit" className="btn btn-primary" value="Login" />
+                                    <FormGroup>
+                                        <Input type="submit" className="btn btn-primary" value="Register" />
+                                    </FormGroup>
                                 </Form>
                                 </CardBody>
                             </Card>
@@ -84,6 +90,6 @@ import Button from '../common/Button'
 }
 const mapStateToProps = state => ({
     auth: state.auth,
-    errors: state.errors
+    errors:state.errors
   });
-  export default    connect(mapStateToProps,{loginAdmin}) (Login)
+  export default    connect(mapStateToProps,{registerAdmin}) (Register)

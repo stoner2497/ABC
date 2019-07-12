@@ -51,10 +51,6 @@ const UserSchema = new Schema({
         type:Number,
         required:true
     },
-    city:{
-        type:String,
-        required:true
-    },
     Branch:{
         type:String,
     },
@@ -78,7 +74,7 @@ const UserSchema = new Schema({
     annualTurnover:{
         type:Number,
     },
-    natureOfBussiness:{
+    bussinessSector:{
         type:String,
     },
 

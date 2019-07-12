@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema
 
 const AdminSchema = new Schema({
+    Designation:{
+        type:String,
+        required:true
+    },
     Branch:{
         type:String,
         required:true

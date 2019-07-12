@@ -2,6 +2,7 @@ import {
     GET_ADMIN,
     PROFILE_LOADING,
  } from '../actions/types';
+import { GET_EMPLOYEE } from '../Action/types';
   
   const initialState = {
     admin: null,
@@ -19,9 +20,15 @@ import {
       case GET_ADMIN:
         return {
           ...state,
-          profile: action.payload,
+          admin: action.payload,
           loading: false
         };
+      case GET_EMPLOYEE:
+          return {
+              ...state,
+              employee:action.employee,
+              loading:false
+          }
       default:
         return state;
     }

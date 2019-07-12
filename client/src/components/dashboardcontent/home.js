@@ -1,182 +1,65 @@
 import React, { Component } from 'react'
-import {Row,Col} from 'reactstrap'
-import { Card, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
-import {connect} from 'react-redux';
-import {getAdmin} from "../../Action/accountActions"
-import { Chart } from "react-charts";
-const lineChart = (
-    // A react-chart hyper-responsively and continuusly fills the available
-    // space of its parent element automatically
-    <div
-      style={{
-        width: "500px",
-        height: "300px"
-      }}
-    >
-      <Chart
-        data={[
-          {
-            label: "Series 1",
-            data: [[0, 1], [1, 2], [2, 4], [3, 2], [4, 7]]
-          },
-          {
-            label: "Series 2",
-            data: [[0, 3], [1, 1], [2, 5], [3, 6], [4, 4]]
-          }
-        ]}
-        axes={[
-          { primary: true, type: "linear", position: "bottom" },
-          { type: "linear", position: "left" }
-        ]}
-      />
-    </div>
-  )
+import { Row, Col, Card, CardTitle, CardSubtitle, CardText, CardBody, Button } from 'reactstrap'
+import Graph from '../common/graph'
+import Piechart from '../common/piechart';
+import Dashboardcards from '../common/dashboardcards';
 
- class Home extends Component {
-   componentDidMount() {
-     this.props.getAdmin()
-   }
-    render() {
-      const {Name,Branch,email} = this.props.auth
-        return (
-            <React.Fragment>
-                <Row>
-                  <h5>{Name}</h5>
-                <Col md = {3}>
-                <Card>
-        
-        <CardBody>
-          <CardTitle></CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <Button>Button</Button>
-        </CardBody>
-      </Card>    
-                
-                </Col>
-                <Col md = {3}>
-                <Card>
-        
-        <CardBody>
-          <CardTitle>Card title</CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <Button>Button</Button>
-        </CardBody>
-      </Card>
-                
-                </Col>
-                <Col md = {3}>
-                <Card>
-        
-        <CardBody>
-          <CardTitle>Card title</CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <Button>Button</Button>
-        </CardBody>
-      </Card>
-                
-                </Col>
-                <Col md = {3}>
-                <Card>
-        
-        <CardBody>
-          <CardTitle>Card title</CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <Button>Button</Button>
-        </CardBody>
-      </Card>
-                
-                </Col>
-            
-            </Row>
-            <hr />
-            <Row>
-                <Col md = {8}>
-                
-                    Loan Due Analysis
-                    {lineChart}
-                    
-                </Col>
-                <Col md = {4}>
-                    Report
-                    <br></br>
-                    <Card>
-        
-        <CardBody>
-          <CardTitle>Card title</CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <Button>Button</Button>
-        </CardBody>
-      </Card>
-                </Col>
-            </Row>
-            <Row>
-                <Col md = {12}>
-                    <hr />
-                <table border = "1" width = "100%">
-                    <tr>
-                        <th>
-                            Sr. No.
-                        </th>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Designation
-                        </th>
-                        <th>
-                            Contact
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                            
-                        <td>
-                            2
-                        </td>
 
-                        <td>
-                            3
-                        </td>
+export default class App extends Component {
+  render() {
+    return (
+      <div className = "mainpage">
+      
+      <Row className = "p-4">
+        <Col md = {9}>
+        <Card className = "universalcard">
+            <CardBody>
+            <Graph />
+            </CardBody>
+          </Card>
+        </Col>
+        <Col md = {3}>
+        <Card className = "universalcard">
+          <CardBody>
+            <CardTitle>Card title</CardTitle>
+            <CardSubtitle>Card subtitle</CardSubtitle>
+            <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
+            <Button>Button</Button>
+          </CardBody>
+        </Card>
+        </Col>
+      </Row>
+      <Row className = "p-4">
+        <Dashboardcards />
+      </Row>
+      <Row className = "p-4">
+        <Col md = {12}>
+          <Card className = "universalcard">
+            <CardBody>
+              <CardText><h1>Total Users:</h1></CardText>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+      <Row className = "p-4">
+        <Col md = {6}>
+          <Card className = "universalcard">
+            <CardBody>
+            <Piechart />
+            </CardBody>
+          </Card>
+        </Col>
+        <Col md = {6}>
+          <Card className = "universalcard">
+            <CardBody>
+            <Piechart />
+            </CardBody>
+          </Card>
 
-                        <td>
-                            4
-                        </td>
+        </Col>
+      </Row>
+      </div>
 
-                    </tr>
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                            
-                        <td>
-                            2
-                        </td>
-
-                        <td>
-                            3
-                        </td>
-
-                        <td>
-                            4
-                        </td>
-
-                    </tr>                    
-                </table>
-                </Col>
-            </Row>
-            </React.Fragment>
-             
-        )
-    }
+    )
+  }
 }
-const mapStateToProps = state => ({
-  auth:state.auth
-})
-export default connect(mapStateToProps,{getAdmin})(Home) 

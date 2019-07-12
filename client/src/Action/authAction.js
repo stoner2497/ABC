@@ -5,25 +5,15 @@ import jwt_decode from 'jwt-decode';
 
 export const registerAdmin = (userdata , history) => dispatch => {
     axios
-        .post('/register/Admin',userdata)
-        .then(res => console.log(res.data))
+        .post('/register/superAdmin',userdata)
+        .then(res => history.push('/'))
         .catch(err => dispatch({
             type:GET_ERRORS,
             payload:err.response.data
         }))
 }
 
-export const registerUser = (userdata , history) => dispatch => {
-    axios
-        .post('/register',userdata)
-        .then(res => history.push('/login'))
-        .catch(err => dispatch({
-            type:GET_ERRORS,
-            payload:err.response.data
-        }))
-}
-
-export const login = userdata => dispatch => {
+export const loginAdmin = userdata => dispatch => {
     axios
         .post('/',userdata)
         .then(res => {

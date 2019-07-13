@@ -1,10 +1,20 @@
 import React from 'react';
 import { Card, CardBody, CardTitle, Button, Form, FormGroup, Label, Input ,Row,Col,Jumbotron,Table} from 'reactstrap';
-import UserFormStep1 from './UserFormStep/UserFormStep1'
-import UserFormStep2 from './UserFormStep/UserFormStep2'
-export default class AddCustomer extends React.Component {
-  render() {
+import {connect} from 'react-redux'
+import {getUserDetails} from '../Action/userAction'
+ class AllCustomer extends React.Component {
 
+    componentDidMount() {
+        this.props.getUserDetails()
+    }
+
+  render() {
+    // const {user} = this.props
+    // let tableRow = Object.values(user).map(user => (
+    //     <tr>
+    //      <th scope="row">{user.Name}</th>
+    //      </tr>
+    // ))
     return (
      <div >
            <div style={{marginRight:'5%',boxShadow:' 3px 3px 10px grey',padding:'8px',marginBottom:'30px'}}>
@@ -14,9 +24,9 @@ export default class AddCustomer extends React.Component {
             <Col md="10">
                 <Card className="newCardUser" >
                     <CardBody>
-                    <Table>
-                        <thead>
-                        <tr>
+                    <Table className = "customerTable">
+                      
+                      <tr>
                             <th>#</th>
                             <th>Name</th>
                             <th>Contact</th>
@@ -37,29 +47,51 @@ export default class AddCustomer extends React.Component {
                             <th>Designation</th>
                             <th>status</th>
                             <th>action</th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
-                        </tbody>
+                      </tr>
+                      <tr>
+                            <td>1</td>
+                            <td>Name</td>
+                            <td>Contact</td>
+                            <td>Alternate Conatct</td>
+                            <td>Email</td>
+                            <td>Pan</td>
+                            <td>Aadhar Card</td>
+                            <td>Profession</td>
+                            <td>Age</td>
+                            <td>City</td>
+                            <td>State</td>
+                            <td>Gender</td>
+                            <td>Montdly Salary</td>
+                            <td>Montdly Expense</td>
+                            <td>Cibl</td>
+                            <td>Martial Status</td>
+                            <td>Residential Status</td>
+                            <td>Designation</td>
+                            <td>status</td>
+                            <td>action</td>
+                      </tr>
+                      <tr>
+                            <td>2</td>
+                            <td>Name</td>
+                            <td>Contact</td>
+                            <td>Alternate Conatct</td>
+                            <td>Email</td>
+                            <td>Pan</td>
+                            <td>Aadhar Card</td>
+                            <td>Profession</td>
+                            <td>Age</td>
+                            <td>City</td>
+                            <td>State</td>
+                            <td>Gender</td>
+                            <td>Montdly Salary</td>
+                            <td>Montdly Expense</td>
+                            <td>Cibl</td>
+                            <td>Martial Status</td>
+                            <td>Residential Status</td>
+                            <td>Designation</td>
+                            <td>status</td>
+                            <td>action</td>
+                      </tr>
                     </Table>
                     </CardBody>
                 </Card>
@@ -70,3 +102,7 @@ export default class AddCustomer extends React.Component {
     );
   }
 }
+const mapStateToProps = state => ({
+    user:state.user
+})
+export default connect(mapStateToProps,{getUserDetails})(AllCustomer)

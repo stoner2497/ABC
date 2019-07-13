@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import UserFormStep1 from './UserFormStep/UserFormStep1'
 import UserFormStep2 from './UserFormStep/UserFormStep2'
+import UserFormStep3 from './UserFormStep/UserFormStep3'
+
 import {Row,Col,Card ,CardBody} from 'reactstrap'
 export default class AddUser extends Component {
     constructor(props) {
@@ -22,7 +24,7 @@ export default class AddUser extends Component {
             Branch:'',
             monthlyIncome:'',
             monthlyExpense:'',
-            LoanType:'',
+            loanType:'',
             loanAmt:'',
             maritialStatus:'',
             residentialStatus:'',
@@ -30,6 +32,7 @@ export default class AddUser extends Component {
         }
         this.onRender = this.onRender.bind(this)
         this.onHandleChange = this.onHandleChange.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
     }
     nextStep = (e) => {
         const {step} = this.state;
@@ -49,6 +52,14 @@ export default class AddUser extends Component {
         this.setState({
             [e.target.name]:e.target.value
         })
+    }
+    onSubmit(e) {
+        e.preventDefault()
+        const {Name,contact,alternateNumber,email,pan,Aadhar,cibl,city,state,gender,profession,age,Branch,monthlyIncome,monthlyExpense,LoanType,loanAmt,maritialStatus,residentialStatus,Designation} = this.state
+        const newUser = {
+            Name,contact,alternateNumber,email,pan,Aadhar,cibl,city,state,gender,profession,age,Branch,monthlyIncome,monthlyExpense,LoanType,loanAmt,maritialStatus,residentialStatus,Designation
+        } 
+        console.log(newUser)
     }
     onRender()  {
         const {step} = this.state;
@@ -70,6 +81,15 @@ export default class AddUser extends Component {
                      previous={this.prevStep}
                      onHandleChange={this.onHandleChange} />
                 )
+            case 3:
+                return (
+                    <UserFormStep3 
+                        values={values}
+                        onSubmit={this.onSubmit}
+                        previous={this.prevStep}
+                        onHandleChange={this.onHandleChange}
+                        />
+                )
         }
     }
     render() {
@@ -80,7 +100,7 @@ export default class AddUser extends Component {
                        <Col md="6">
                            <Card>
                                <CardBody>
-                                   {this.onRender}
+                                   {this.onRender()}
                                </CardBody>
                            </Card>
                        </Col>

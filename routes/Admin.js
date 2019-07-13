@@ -90,9 +90,8 @@ module.exports  = function (io)  {
     })
 
     router.get('/alluser', passport.authenticate('jwt',{session:false}),(req,res) => {
-        User.find({Branch:req.user.Branch})
+        User.find({})
             .then(user => {
-                console.log(user.length)
                 res.status(200).json(user)
             }).catch(err => console.log(err))
     })

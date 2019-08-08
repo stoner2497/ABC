@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
-import { Row, Col, Card, CardTitle, CardSubtitle, CardText, CardBody, Button } from 'reactstrap'
+import { Row, Col, Card, CardTitle, CardSubtitle, CardText, CardBody, Button ,Jumbotron } from 'reactstrap'
 import Graph from '../common/graph'
 import Piechart from '../common/piechart';
+import Piechart2 from '../common/piechart2';
+import Piechart3 from '../common/piechart3';
+import LineChart from '../common/lineChart';
 import Dashboardcards from '../common/dashboardcards';
 
 
@@ -9,25 +12,24 @@ export default class App extends Component {
   render() {
     return (
       <div className = "mainpage">
-      
+        <h1>DashBoard</h1>
+      <hr />
       <Row className = "p-4">
-        <Col md = {9}>
+        <Col md = {6}>
         <Card className = "universalcard">
             <CardBody>
             <Graph />
             </CardBody>
           </Card>
         </Col>
-        <Col md = {3}>
+        <Col md = {6}>
         <Card className = "universalcard">
-          <CardBody>
-            <CardTitle>Card title</CardTitle>
-            <CardSubtitle>Card subtitle</CardSubtitle>
-            <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-            <Button>Button</Button>
-          </CardBody>
-        </Card>
+            <CardBody>
+              <LineChart />
+            </CardBody>
+          </Card>
         </Col>
+
       </Row>
       <Row className = "p-4">
         <Dashboardcards />
@@ -36,23 +38,31 @@ export default class App extends Component {
         <Col md = {12}>
           <Card className = "universalcard">
             <CardBody>
-              <CardText><h1>Total Users:</h1></CardText>
+              <CardText><h1>Total Users:  6</h1></CardText>
             </CardBody>
           </Card>
         </Col>
       </Row>
       <Row className = "p-4">
-        <Col md = {6}>
+        <Col md = {4}>
           <Card className = "universalcard">
             <CardBody>
             <Piechart />
             </CardBody>
           </Card>
         </Col>
-        <Col md = {6}>
+        <Col md = {4}>
           <Card className = "universalcard">
             <CardBody>
-            <Piechart />
+            <Piechart2 />
+            </CardBody>
+          </Card>
+
+        </Col>
+        <Col md = {4}>
+          <Card className = "universalcard">
+            <CardBody>
+            <Piechart3 />
             </CardBody>
           </Card>
 

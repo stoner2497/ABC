@@ -10,17 +10,16 @@ export default class Graph extends React.Component {
         chartType="Bar"
         loader={<div>Loading Chart</div>}
         data={[
-          ['Year', 'Sales', 'Expenses', 'Profit'],
-          ['2014', 1000, 400, 200],
-          ['2015', 1170, 460, 250],
-          ['2016', 660, 1120, 300],
-          ['2017', 1030, 540, 350],
+          ['Year', 'Personal', 'Business'],
+          ['2014', 50, 30],
+          ['2015', 55, 35],
+          ['2016', 65, 75],
+          ['2017', 85, 22],
         ]}
         options={{
           // Material design options
           chart: {
-            title: 'Company Performance',
-            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+            title: 'Loan OverView',
           },
         }}
         // For tests

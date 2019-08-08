@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardBody, CardTitle, Button, Form, FormGroup, Label, Input ,Row,Col,Jumbotron,Table} from 'reactstrap';
+import { Card, CardBody, CardTitle, Button, Form, FormGroup, Label, Input ,Row,Col,Jumbotron,Table,Badge} from 'reactstrap';
 import {connect} from 'react-redux'
 import {getUserDetails} from '../Action/userAction'
  class AllCustomer extends React.Component {
@@ -8,91 +8,65 @@ import {getUserDetails} from '../Action/userAction'
         this.props.getUserDetails()
     }
 
-  render() {
-    // const {user} = this.props
-    // let tableRow = Object.values(user).map(user => (
-    //     <tr>
-    //      <th scope="row">{user.Name}</th>
-    //      </tr>
-    // ))
+  render  ()  {
+    const { users } = this.props.user
+    let tableRow =  users.map(user => (
+      <tr>
+      <td>{user.Name}</td>
+   </tr>
+    ))
+        
+
+  
     return (
      <div >
-           <div style={{marginRight:'5%',boxShadow:' 3px 3px 10px grey',padding:'8px',marginBottom:'30px'}}>
-             <h5>Customer List</h5>
-            </div>
+           <Jumbotron>
+             <h3>
+               All Users
+             </h3>
+           </Jumbotron>
+               <Button style={{marginLeft:'2%'}} >New Users Online : 0</Button>
+                {"  "}
+               <Button  className="btn-sucess">New Users Offline : 2</Button>
+             <br />
+             <br />
         <Row >
+          <Col md="1"></Col>
             <Col md="10">
                 <Card className="newCardUser" >
                     <CardBody>
                     <Table className = "customerTable">
-                      
-                      <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Contact</th>
-                            <th>Alternate Conatct</th>
-                            <th>Email</th>
-                            <th>Pan</th>
-                            <th>Aadhar Card</th>
-                            <th>Profession</th>
-                            <th>Age</th>
-                            <th>City</th>
-                            <th>State</th>
-                            <th>Gender</th>
-                            <th>Monthly Salary</th>
-                            <th>Monthly Expense</th>
-                            <th>Cibl</th>
-                            <th>Martial Status</th>
-                            <th>Residential Status</th>
-                            <th>Designation</th>
-                            <th>status</th>
-                            <th>action</th>
-                      </tr>
-                      <tr>
-                            <td>1</td>
-                            <td>Name</td>
-                            <td>Contact</td>
-                            <td>Alternate Conatct</td>
-                            <td>Email</td>
-                            <td>Pan</td>
-                            <td>Aadhar Card</td>
-                            <td>Profession</td>
-                            <td>Age</td>
-                            <td>City</td>
-                            <td>State</td>
-                            <td>Gender</td>
-                            <td>Montdly Salary</td>
-                            <td>Montdly Expense</td>
-                            <td>Cibl</td>
-                            <td>Martial Status</td>
-                            <td>Residential Status</td>
-                            <td>Designation</td>
-                            <td>status</td>
-                            <td>action</td>
-                      </tr>
-                      <tr>
-                            <td>2</td>
-                            <td>Name</td>
-                            <td>Contact</td>
-                            <td>Alternate Conatct</td>
-                            <td>Email</td>
-                            <td>Pan</td>
-                            <td>Aadhar Card</td>
-                            <td>Profession</td>
-                            <td>Age</td>
-                            <td>City</td>
-                            <td>State</td>
-                            <td>Gender</td>
-                            <td>Montdly Salary</td>
-                            <td>Montdly Expense</td>
-                            <td>Cibl</td>
-                            <td>Martial Status</td>
-                            <td>Residential Status</td>
-                            <td>Designation</td>
-                            <td>status</td>
-                            <td>action</td>
-                      </tr>
-                    </Table>
+      <thead>
+        {console.log()}
+      <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Alternate Conatct</th>
+            <th>Email</th>
+            <th>Pan</th>
+            <th>Aadhar Card</th>
+            <th>Profession</th>
+            <th>Age</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Gender</th>
+            <th>Monthly Salary</th>
+            <th>Monthly Expense</th>
+            <th>Cibl</th>
+            <th>Martial Status</th>
+            <th>Residential Status</th>
+            <th>Designation</th>
+            <th>status</th>
+            <th>action</th>
+      </tr>
+       
+      </thead> 
+      <tbody>
+      {tableRow}
+      </tbody>
+      
+    </Table>
                     </CardBody>
                 </Card>
             </Col>

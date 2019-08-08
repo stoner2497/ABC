@@ -98,6 +98,8 @@ export default class AddUser extends Component {
                    <Row>
                        <Col md="3"></Col>
                        <Col md="6">
+                           <h4 className="text-center">ADD NEW CUSTOMER FOR LOAN APPROVAL</h4>
+                           <br />
                            <Card>
                                <CardBody>
                                    {this.onRender()}

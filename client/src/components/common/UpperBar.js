@@ -26,8 +26,8 @@ export default class UpperBar extends React.Component {
     render() {
       return (
         <div style={{paddingBottom:'2%' }}>
-          <Navbar color="dark" dark expand="md">
-            <NavbarBrand href="/">Aditya Birla Capital</NavbarBrand>
+          <Navbar color="danger"  expand="md">
+            <NavbarBrand href="/" style={{color:"white"}}><h4>Aditya Birla Capital</h4></NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>

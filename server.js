@@ -6,6 +6,9 @@ const http = require("http");
 const socketIo = require("socket.io");
 const path = require('path')
 const app = express();
+const AWS = require('aws-sdk')
+const keys = require('./config/Keys')
+
 
 mongoose.Promise = global.Promise;
 //connect to mongoose

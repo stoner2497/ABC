@@ -8,8 +8,10 @@ import Login from './components/auth/Login'
 import Navbar from './components/common/Navbar'
 import Register from './components/auth/Register'
 import User from './components/Alluser';
+import Employee from './components/Employee'
 import UpperBar from './components/common/UpperBar'
 import Adduser from './components/AddUser'
+import LoansDue from './components/LoansDue'
 import "./App.css"
 
 import { setCurrentUser, logoutUser } from './Action/authAction';
@@ -55,10 +57,10 @@ export default class App extends Component {
                         <PrivateRoute exact path="/admin" component={Home} />
                         <PrivateRoute exact path="/admin/users" component={User} />
                         <PrivateRoute exact path="/admin/Addusers" component={Adduser} />
-                        {/* <PrivateRoute exact path="/admin/Banks" component={Banks} />
-                        <PrivateRoute exact path="/admin/LoansDue" component={loansDue} />
-                        <PrivateRoute exact path="/admin/Task" component={Task} />
-                        <PrivateRoute exact path="/admin/acceptedLoan" component={acceptedLoan} /> */}
+                         <PrivateRoute exact path="/admin/employee" component={Employee} />
+                        <PrivateRoute exact path="/admin/loansDue" component={LoansDue} />
+                        {/* <PrivateRoute exact path="/admin/LoansDue" component={loansDue} />
+                        <PrivateRoute exact path="/admin/acceptedLoan" component={acceptedLoan} /> */} */}
                     </Switch>
                   </Col> 
                 </Row> 

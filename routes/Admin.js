@@ -1,15 +1,52 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport')
-
-
+const multer = require('../Api/multer')
+const keys = require('../config/Keys')
+const fs = require('fs')
+const FileReader = require('filereader')
 const Admin = require('../models/Admin')
 const Loans = require('../models/LoanDetails')
+const uuid = require('uuid')
 const User = require('../models/User')
+var AWS = require('aws-sdk');
 
+AWS.config.update({
+    accessKeyId: keys.aws_access_key_id,
+    secretAccessKey:keys.aws_secret_access_key,
+    region:'ap-northeast-1'
+})
+const Rekognition = new AWS.Rekognition({apiVersion: '2016-06-27'})
+const S3 = new AWS.S3()
+const createBucket = (bucketNames,keyNames) => {
+    const bucketName = bucketNames + uuid.v4();
+// Create name for uploaded object key
+const keyName = 'image.jpg';
+
+// Create a promise on S3 service object
+var bucketPromise = new AWS.S3({apiVersion: '2006-03-01'}).createBucket({Bucket: bucketName}).promise();
+
+// Handle promise fulfilled/rejected states
+bucketPromise.then(
+  function(data) {
+    // Create params for putObject call
+    const byte = JSON.stringify(keyNames)
+    var objectParams = {Bucket: bucketName, Key: keyName, Body:byte};
+    // Create object upload promise
+    var uploadPromise = new AWS.S3({apiVersion: '2006-03-01'}).putObject(objectParams).promise();
+    uploadPromise.then(
+      function(data) {
+        console.log("Successfully uploaded data to " + bucketName + "/" + keyName);
+      });
+}).catch(
+  function(err) {
+    console.error(err, err.stack);
+});
+}
 
 module.exports  = function (io)  {
    //function
+
    
     const loansDue = (req,res) => {
         User.find({Branch:req.user.Branch})
@@ -103,8 +140,54 @@ module.exports  = function (io)  {
             })
     })
     
+    router.post('/image',multer.single('image'),async (req,res) => {
+        // function getBinary(encodedFile) {
+        //     var base64Image = encodedFile.split("data:image/jpeg;base64,")[1];
+        //     var binaryImg = atob(base64Image);
+        //     var length = binaryImg.length;
+        //     var ab = new ArrayBuffer(length);
+        //     var ua = new Uint8Array(ab);
+        //     for (var i = 0; i < length; i++) {
+        //       ua[i] = binaryImg.charCodeAt(i);
+        //     }
+    
+        //     var blob = new Blob([ab], {
+        //       type: "image/jpeg"
+        //     });
+    
+        //     return ab;
+        //   }
+        //   let reader = new FileReader();
+        //   console.log(req.file)
+        //   let file = req.file.path
+        // reader.readAsDataURL(file);
+        // let bucketName = 'rekognization';
+            console.log(req.file.key)
+
+            let params = {
+                Image: { /* required */
+                    S3Object:{
+                        Bucket:req.file.bucket,
+                        Name:req.file.key
+                    }
+                }
+              };
+              Rekognition.detectText(params, function(err, data) {
+                if (err) console.log(err, err.stack); // an error occurred
+                else   {
+                    // Object.values(data).map(value => {
+                    //     console.log(value.Type)
+                    // })
+                    console.log(data)
+                }           // successful response
+              });
+        
+
+        // createBucket(bucketName,keyName)
+    })
 
     
 
     return router
 }
+debugger;

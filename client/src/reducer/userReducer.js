@@ -1,15 +1,15 @@
-import {GET_USER_DETAIL} from '../Action/types'
+import {GET_USER_DETAILS} from '../Action/types'
 
 const initialState = {
-    userDetail:[]
+    users:[]
 }
 
 export default function (state = initialState,action) {
     switch(action.type) {
-        case GET_USER_DETAIL:
+        case GET_USER_DETAILS:
             return {
                 ...state,
-                userDetail:action.payload
+                users:action.payload
             }
         default:
             return state
